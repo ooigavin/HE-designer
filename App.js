@@ -46,7 +46,6 @@ Navigation.events().registerAppLaunchedListener(() => {
           title: { text: 'HE Design Guidelines' },
           leftButtons: [
             {
-              id: 'buttonOne',
               icon: sources[0],
               id: 'sideDrawerToggle'
             }

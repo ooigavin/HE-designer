@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Navigation } from 'react-native-navigation'; 
 
 import PlanItem from '../../components/PlanItem/PlanItem';
 
 class Rating extends Component {
+
+  constructor(props) {
+    super(props);
+    this.navigationEventListener = Navigation.events().bindComponent(this);
+  }
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === 'infoButton') {
+      alert('Helper info for ratings tab')
+    }
+  }
 
   render() {
     return (

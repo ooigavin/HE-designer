@@ -1,10 +1,22 @@
 import React, {Component} from 'react';
-import { ScrollView, StyleSheet, View} from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Navigation } from 'react-native-navigation';
 
 import GuidelineItem from '../../components/GuidelineItem/GuidelineItem';
 import Header from '../../UI/Header/Header';
 
 class Guidelines extends Component {
+
+  constructor(props) {
+    super(props);
+    this.navigationEventListener = Navigation.events().bindComponent(this);
+  }
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === 'infoButton') {
+      alert('Helper info for guidelines tab')
+        }
+  }
 
   render () {
     return (
