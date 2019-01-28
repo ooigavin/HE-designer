@@ -1,9 +1,12 @@
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
-
-import SideDrawerScreen from './src/Screens/SideDrawer/SideDrawer';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import GuidelinesScreen from './src/Screens/Guidelines/Guidelines';
+import RatingScreen from './src/Screens/Rating/Rating';
+import SizingScreen from './src/Screens/Sizing/Sizing';
+import SideDrawerScreen from './src/Screens/SideDrawer/SideDrawer';
 
 // import configureStore from './src/store/configureStore';
 
@@ -13,6 +16,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // registerComponent takes 2 arguements the name of the component and the function that returns the jsx
 // Navigation.registerComponentWithRedux('awesome-places.FindPlaceScreen', () => FindPlaceScreen, Provider, store);
 Navigation.registerComponent('he-designer.SideDrawerScreen', () => SideDrawerScreen);
+Navigation.registerComponent('he-designer.SizingScreen', () => SizingScreen);
+Navigation.registerComponent('he-designer.RatingScreen', () => RatingScreen);
+Navigation.registerComponent('he-designer.GuidelinesScreen', () => GuidelinesScreen);
 
 // Start a App (screen)
 Navigation.events().registerAppLaunchedListener(() => {
@@ -27,7 +33,7 @@ Navigation.events().registerAppLaunchedListener(() => {
     const guideTab = {
       children: [{
         component: {
-          name: 'he-designer.SideDrawerScreen'
+          name: 'he-designer.GuidelinesScreen'
         }
       }],
       options: {
@@ -58,7 +64,7 @@ Navigation.events().registerAppLaunchedListener(() => {
     const ratingTab = {
       children: [{
         component: {
-          name: 'he-designer.SideDrawerScreen'
+          name: 'he-designer.RatingScreen'
         }
       }],
       options: {
@@ -88,7 +94,7 @@ Navigation.events().registerAppLaunchedListener(() => {
     const sizingTab = {
       children: [{
         component: {
-          name: 'he-designer.SideDrawerScreen'
+          name: 'he-designer.SizingScreen'
         }
       }],
       options: {
