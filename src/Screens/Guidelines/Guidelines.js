@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
 import GuidelineItem from '../../components/GuidelineItem/GuidelineItem';
+import CollapsePanel from '../../UI/CollapsePanel/CollapsePanel';
 import Header from '../../UI/Header/Header';
 
 class Guidelines extends Component {
@@ -22,12 +23,12 @@ class Guidelines extends Component {
     return (
       <ScrollView>
         <View style={styles.guidelineContainer}>
-          <GuidelineItem guidelineName='Tube Layout' />
-          <GuidelineItem guidelineName='Shell Type' />
-          <GuidelineItem guidelineName='Fluid Properties' />
-          <GuidelineItem guidelineName='Fouling' />
-          <GuidelineItem guidelineName='Flow-Induced Vibration' />
-          <GuidelineItem guidelineName='Tube Length' />
+          <CollapsePanel panelName='Tube Layout'><Text>Tube Layout</Text></CollapsePanel>
+          <CollapsePanel panelName='Shell Type'><Text>Shell Type</Text></CollapsePanel>
+          <CollapsePanel panelName='Fluid Properties'><Text>Fluid Properties</Text></CollapsePanel>
+          <CollapsePanel panelName='Fouling'><Text>Fouling</Text></CollapsePanel>
+          <CollapsePanel panelName='Flow-Induced Vibration'><Text>Flow-Induced Vibration</Text></CollapsePanel>
+          <CollapsePanel panelName='Tube Length'><Text>Tube Length</Text></CollapsePanel>
         </View>
       </ScrollView>      
     );
