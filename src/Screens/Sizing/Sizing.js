@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Navigation } from 'react-native-navigation'; 
+import { Navigation } from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import PlanItem from '../../components/PlanItem/PlanItem';
 
@@ -17,10 +18,34 @@ class Sizing extends Component {
     }
   }
 
+  openCalc = () => {
+    Promise.all([
+      Icon.getImageSource('md-arrow-back', 30)
+    ]).then(sources => {
+      Navigation.push(this.props.componentId, {
+        component: {
+          name: 'he-designer.SizingCalcScreen',
+          passProps: {
+            selectedPlace: 'hello'
+          },
+          options: {
+            topBar: {
+              title: {text: 'Sizing Calculations'},
+              leftButtons: [{
+                id:'calculationBack',
+                icon: sources[0]
+              }]
+            }
+          }
+        }
+      });
+    });
+  }
+
   render() {
     return (
       <View style={styles.sizingContainer}>
-        <PlanItem planName='Sizing Plan 1' />
+        <PlanItem planName='Sizing Plan 1' onItemPressed={this.openCalc}/>
       </View>
     );
   }

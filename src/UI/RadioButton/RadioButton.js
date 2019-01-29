@@ -7,7 +7,7 @@ class Panel extends Component {
     super(props);
 
     this.icons = {
-      'up': <Icon size={27} name="md-arrow-dropup-circle" color="#99E0E7" style={styles.toggleIcon} />,
+      'up': <Icon size={27} name="md-radio-button-off" color="#99E0E7" style={styles.toggleIcon} />,
       'down': <Icon size={27} name="md-arrow-dropdown-circle" color="#99E0E7" style={styles.toggleIcon} />
     };
 
@@ -18,23 +18,21 @@ class Panel extends Component {
 
   toggle = () => {
     this.setState(prevState => (
-      {expanded: !prevState.expanded}
+      { expanded: !prevState.expanded }
     ))
   }
 
   render() {
     return (
-      <View>
-        <TouchableOpacity onPress={this.toggle}>
-          <View style={styles.panelItem}>
-            {this.state.expanded ? this.icons['up'] : this.icons['down']}
-            <Text>{this.props.panelName}</Text>
-          </View>
-        </TouchableOpacity>
+      <TouchableOpacity onPress={this.toggle}>
+        <View style={styles.panelItem}>
+          {this.state.expanded ? this.icons['up'] : this.icons['down']}
+          <Text>{this.props.panelName}</Text>
+        </View>
         <View style={this.state.expanded ? styles.toggleContent : null}>
           {this.state.expanded ? this.props.children : null}
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -56,10 +54,7 @@ const styles = StyleSheet.create({
   toggleContent: {
     borderWidth: 1,
     borderColor: 'black',
-    borderRadius: 5,
-    padding:5,
-    marginRight:7,
-    marginLeft:7
+    padding: 5
   }
 });
 

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
-import GuidelineItem from '../../components/GuidelineItem/GuidelineItem';
 import CollapsePanel from '../../UI/CollapsePanel/CollapsePanel';
 import Header from '../../UI/Header/Header';
 

@@ -5,7 +5,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import GuidelinesScreen from './src/Screens/Guidelines/Guidelines';
 import RatingScreen from './src/Screens/Rating/Rating';
+import RatingCalcScreen from './src/Screens/Rating/CalculateRating';
 import SizingScreen from './src/Screens/Sizing/Sizing';
+import SizingCalcScreen from './src/Screens/Sizing/CalculateSizing';
 import SideDrawerScreen from './src/Screens/SideDrawer/SideDrawer';
 
 // import configureStore from './src/store/configureStore';
@@ -16,9 +18,11 @@ import SideDrawerScreen from './src/Screens/SideDrawer/SideDrawer';
 // registerComponent takes 2 arguements the name of the component and the function that returns the jsx
 // Navigation.registerComponentWithRedux('awesome-places.FindPlaceScreen', () => FindPlaceScreen, Provider, store);
 Navigation.registerComponent('he-designer.SideDrawerScreen', () => SideDrawerScreen);
-Navigation.registerComponent('he-designer.SizingScreen', () => SizingScreen);
-Navigation.registerComponent('he-designer.RatingScreen', () => RatingScreen);
 Navigation.registerComponent('he-designer.GuidelinesScreen', () => GuidelinesScreen);
+Navigation.registerComponent('he-designer.SizingScreen', () => SizingScreen);
+Navigation.registerComponent('he-designer.SizingCalcScreen', () => SizingCalcScreen);
+Navigation.registerComponent('he-designer.RatingScreen', () => RatingScreen);
+Navigation.registerComponent('he-designer.RatingCalcScreen', () => RatingCalcScreen);
 
 // Start a App (screen)
 Navigation.events().registerAppLaunchedListener(() => {
