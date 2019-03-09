@@ -24,7 +24,7 @@ class Panel extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.panelContainer}>
         <TouchableOpacity onPress={this.toggle}>
           <View style={styles.panelItem}>
             {this.state.expanded ? this.icons['up'] : this.icons['down']}
@@ -40,6 +40,9 @@ class Panel extends Component {
 }
 
 const styles = StyleSheet.create({
+  panelContainer: {
+    width: '100%'
+  },
   panelItem: {
     width: "100%",
     padding: 10,

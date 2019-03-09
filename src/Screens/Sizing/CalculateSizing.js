@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
   sizingContainer: {
     width: '90%',
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
+    alignItems:'center'
   },
   buttonContainer: {
     margin: 10,

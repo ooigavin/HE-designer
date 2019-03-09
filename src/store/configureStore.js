@@ -1,12 +1,18 @@
 import { createStore, combineReducers, compose } from 'redux';
 
-import placesReducer from './reducers/root';
+import sizingReducer from './reducers/sizingReducer';
+import sizingPlanReducer from './reducers/sizingPlanReducer';
+import ratingReducer from './reducers/ratingReducer';
+import ratingPlanReducer from './reducers/ratingPlanReducer';
 
 const rootReducer = combineReducers({
-  places: placesReducer
+  sizing: sizingReducer,
+  sizingPlan: sizingPlanReducer,
+  rating: ratingReducer,
+  ratingPlan: ratingPlanReducer
 });
 
-let composeEnhancers = compose;
+let composeEnhancers = compose;``
 
 // if in dev mode try and use the redux devtools
 if (__DEV__) {

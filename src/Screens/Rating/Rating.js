@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -45,7 +45,10 @@ class Rating extends Component {
   render() {
     return (
       <View style={styles.ratingContainer}>
-        <PlanItem planName='Rating Plan 1' onItemPressed={this.openCalc}/>
+        <PlanItem planName='Rating Plan 1' onItemPressed={this.openCalc} />
+        <TouchableOpacity style={styles.addButton}>
+          <Icon name='md-add-circle-outline' size={45} color='green' />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -54,8 +57,15 @@ class Rating extends Component {
 const styles = StyleSheet.create({
   ratingContainer: {
     width: '90%',
+    height: '100%',
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
+    alignItems: 'center'
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 15,
+    right: 10
   }
 });
 

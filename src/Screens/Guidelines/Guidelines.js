@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   guidelineContainer: {
     width: '90%',
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
+    alignItems:'center'
   }
 });
 
