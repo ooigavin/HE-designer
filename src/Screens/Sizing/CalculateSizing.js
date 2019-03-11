@@ -61,12 +61,17 @@ class CalculateSizing extends Component {
   };
 
   generateReport = () => {
-
     let options = {
       html: '<h1>PDF TEST</h1>',
       fileName: 'test',
-      directory: 'Documents',
+      directory: 'Documents'
     };
+
+    RNHTMLtoPDF.convert(options).then(filePath => {
+      console.log('PDF generated', filePath);
+    
+    });
+
   };
 
   render() {

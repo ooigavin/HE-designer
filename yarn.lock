@@ -4622,10 +4622,9 @@ react-lifecycles-compat@2.0.0:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-2.0.0.tgz#71d9c4cde47114c4102454f76da055c2bc48c948"
   integrity sha512-txfpPCQYiazVdcbMRhatqWKcAxJweUu2wDXvts5/7Wyp6+Y9cHojqXHsLPEckzutfHlxZhG8Oiundbmp8Fd6eQ==
 
-react-native-html-to-pdf@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/react-native-html-to-pdf/-/react-native-html-to-pdf-0.7.0.tgz#2f55e4236dd1fbc16b224b4cfc06e151f97c35ad"
-  integrity sha512-Pn8Y+bDZvwdMqglOvmoakRC66xnZ+IEhMLORld5hrzclNxaQ6yMoSegGgQTw7yrI/dxSimkyqYt2RuLwY+tlaA==
+"react-native-html-to-pdf@git+https://github.com/Gazfay/react-native-html-to-pdf-fixed.git":
+  version "0.6.0"
+  resolved "git+https://github.com/Gazfay/react-native-html-to-pdf-fixed.git#a0673182805ef71b79f9655818683c5fa6539c46"
 
 react-native-navigation@^2.8.0:
   version "2.8.0"
