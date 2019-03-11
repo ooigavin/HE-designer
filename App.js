@@ -10,19 +10,19 @@ import SizingScreen from './src/Screens/Sizing/Sizing';
 import SizingCalcScreen from './src/Screens/Sizing/CalculateSizing';
 import SideDrawerScreen from './src/Screens/SideDrawer/SideDrawer';
 
-// import configureStore from './src/store/configureStore';
+import configureStore from './src/store/configureStore';
 
-// const store = configureStore();
+const store = configureStore();
 
 // Register screens before you can load them
 // registerComponent takes 2 arguements the name of the component and the function that returns the jsx
 // Navigation.registerComponentWithRedux('awesome-places.FindPlaceScreen', () => FindPlaceScreen, Provider, store);
-Navigation.registerComponent('he-designer.SideDrawerScreen', () => SideDrawerScreen);
-Navigation.registerComponent('he-designer.GuidelinesScreen', () => GuidelinesScreen);
-Navigation.registerComponent('he-designer.SizingScreen', () => SizingScreen);
-Navigation.registerComponent('he-designer.SizingCalcScreen', () => SizingCalcScreen);
-Navigation.registerComponent('he-designer.RatingScreen', () => RatingScreen);
-Navigation.registerComponent('he-designer.RatingCalcScreen', () => RatingCalcScreen);
+Navigation.registerComponentWithRedux('he-designer.SideDrawerScreen', () => SideDrawerScreen, Provider, store);
+Navigation.registerComponentWithRedux('he-designer.GuidelinesScreen', () => GuidelinesScreen, Provider, store);
+Navigation.registerComponentWithRedux('he-designer.SizingScreen', () => SizingScreen, Provider, store);
+Navigation.registerComponentWithRedux('he-designer.SizingCalcScreen', () => SizingCalcScreen, Provider, store);
+Navigation.registerComponentWithRedux('he-designer.RatingScreen', () => RatingScreen, Provider, store);
+Navigation.registerComponentWithRedux('he-designer.RatingCalcScreen', () => RatingCalcScreen, Provider, store);
 
 // Start a App (screen)
 Navigation.events().registerAppLaunchedListener(() => {

@@ -8,9 +8,15 @@ const planItem = (props) => {
     <TouchableOpacity onPress={props.onItemPressed}>
       <View style={styles.planItem}>
         <Text style={styles.planName}>{props.planName}</Text>
-        <Icon size={30} name="md-eye-off" style={styles.plusIcon} />
-        <Icon size={30} name="md-create" color="green" style={styles.plusIcon} />
-        <Icon size={30} name="ios-trash" color="red" style={styles.plusIcon} />
+        <TouchableOpacity onPress={props.view}>
+          <Icon size={30} name="md-eye-off" style={styles.plusIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={props.edit}>
+          <Icon size={30} name="md-create" color="green" style={styles.plusIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={props.delete}>
+          <Icon size={30} name="ios-trash" color="red" style={styles.plusIcon} />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
 
