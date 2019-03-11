@@ -21,7 +21,7 @@ const initialState = {
   planNames: ['Sizing Plan 1','Sizing Plan 2','Sizing Plan 3'],
   planDetails: {
     'Sizing Plan 1': {
-      ssPressureDrop: 0,
+      ssPressureDrop: 'hello there',
       ssMassFlow: 0,
       ssInletTemp: 0,
       ssOutletTemp:0,
@@ -37,7 +37,7 @@ const initialState = {
       acceptableLifespan: 200
     },
     'Sizing Plan 2': {
-      ssPressureDrop: 1,
+      ssPressureDrop: 'whats your name',
       ssMassFlow: 0,
       ssInletTemp: 0,
       ssOutletTemp:0,
@@ -102,6 +102,22 @@ const reducer = (state = initialState, action) => {
         planNames: state.planNames.filter(plans => {
           return plans !== action.planName;
         }),
+        planDetails: updatedDetails
+      };
+
+    case actionTypes.SAVE_SIZING:
+      console.log('hello')
+      console.log(action.planName)
+      console.log(action.type)
+      console.log(action.planDetails)
+      updatedDetails = {
+        ...state.planDetails,
+        [action.planName]: action.planDetails
+      }
+
+      console.log(updatedDetails)
+      return {
+        ...state,
         planDetails: updatedDetails
       };
   }

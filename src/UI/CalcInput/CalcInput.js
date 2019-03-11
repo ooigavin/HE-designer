@@ -12,7 +12,7 @@ const calcInput = (props) => {
           {props.label} <Icon name='md-information-circle-outline' size={20} style={styles.infoIcon} /> : 
         </Text>
       </TouchableOpacity>
-      <TextInput placeholder={props.placeholder} style={styles.textInput}/>
+      <TextInput placeholder={props.placeholder} style={styles.textInput} value={props.value.toString()} onChangeText={props.change}/>
     </View>
   );
 };

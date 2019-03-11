@@ -1,4 +1,4 @@
-import { ADD_SIZING, DEL_SIZING} from './actionTypes';
+import { ADD_SIZING, DEL_SIZING, SAVE_SIZING} from './actionTypes';
 
 export const addSizing = (planName) => {
   return {
@@ -11,5 +11,13 @@ export const delSizing = (key) => {
   return {
     type: DEL_SIZING,
     planName: key
+  };
+};
+
+export const saveSizing = (key, payload) => {
+  return {
+    type: SAVE_SIZING,
+    planName: key,
+    planDetails: payload
   };
 };
