@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, ScrollView, Button } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-// import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 import {saveSizing} from '../../store/actions/sizingActions';
 

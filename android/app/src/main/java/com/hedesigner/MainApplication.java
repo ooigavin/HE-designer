@@ -1,6 +1,7 @@
 package com.hedesigner;
 
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 
 import android.app.Application;
 
@@ -41,7 +42,8 @@ public class MainApplication extends NavigationApplication {
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
             // eg. new VectorIconsPackage(),
-          new VectorIconsPackage()
+            new VectorIconsPackage(),
+            new RNHTMLtoPDFPackage()
         );
     }
   
