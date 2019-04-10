@@ -123,7 +123,7 @@ class Rating extends Component {
         </Modal>
       )
       : null
-      console.log(this.props.rating.planNames)
+      
       let plans = this.props.rating.planNames.length > 0
         ? this.props.rating.planNames.map(plan => (
           <PlanItem planName={plan} key={plan} on={plan} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>

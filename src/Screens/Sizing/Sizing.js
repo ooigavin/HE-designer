@@ -122,12 +122,17 @@ class Sizing extends Component {
         </Modal>
       )
       : null
+      
+      let plans = this.props.sizing.planNames.length > 0
+        ? this.props.sizing.planNames.map(plan => (
+          <PlanItem planName={plan} key={plan} on={plan} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>
+        ))
+        : <Text style={styles.emptyText}>{`No Rating Plans have been created.
+Click on the button below to create a new plan!`}</Text>
 
     return (
       <View style={styles.sizingContainer}>
-        {this.props.sizing.planNames.map(plan => (
-          <PlanItem planName={plan} key={plan} on={plan} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>
-        ))}
+        {plans}
         <TouchableOpacity style={styles.addButton} onPress={this.toggleAddModal}>
           <Icon name='md-add-circle-outline' size={45} color='green'/>
         </TouchableOpacity>
@@ -159,6 +164,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 5
+  },
+  emptyText: {
+    color: 'grey',
+    position: 'absolute',
+    textAlign: 'center',
+    top: 200,
+    right: 22
   }
 });
 
