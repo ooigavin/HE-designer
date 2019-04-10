@@ -77,21 +77,23 @@ const reducer = (state = initialState, action) => {
         planDetails: updatedDetails
       };
 
-      case actionTypes.GEN_RATING:
-        console.log('rating')
-        console.log(action.planName)
-        console.log(action.type)
-        console.log(action.planDetails)
-        updatedDetails = {
-          ...state.planDetails,
-          [action.planName]: action.planDetails
-        }
-  
-        console.log(updatedDetails)
-        return {
-          ...state,
-          planDetails: updatedDetails
-        };
+    case actionTypes.GEN_RATING:
+      console.log('rating')
+      console.log(action.planName)
+      console.log(action.type)
+      console.log(action.planDetails)
+      updatedDetails = {
+        ...state.planDetails,
+        [action.planName]: action.planDetails
+      }
+
+      // change generated state to true
+      updatedDetails[action.planName]['generated'] = true
+      console.log(updatedDetails)
+      return {
+        ...state,
+        planDetails: updatedDetails
+      };
   }
   return state;
 };

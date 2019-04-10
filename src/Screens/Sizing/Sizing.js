@@ -127,7 +127,7 @@ class Sizing extends Component {
         ? this.props.sizing.planNames.map(plan => (
           <PlanItem planName={plan} key={plan} on={plan} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>
         ))
-        : <Text style={styles.emptyText}>{`No Rating Plans have been created.
+        : <Text style={styles.emptyText}>{`No Sizing Plans have been created.
 Click on the button below to create a new plan!`}</Text>
 
     return (

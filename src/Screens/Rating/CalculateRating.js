@@ -76,7 +76,7 @@ class CalculateRating extends Component {
       console.log('PDF generated', filePath);
     
     });
-    this.props.genPlan()
+    this.props.genPlan(this.props.planName, this.state.ratingInput)
 
   };
 
