@@ -18,9 +18,9 @@ const defaultDetail = {
 }
 
 const initialState = {
-  planNames: ['Sizing Plan 1','Sizing Plan 2','Sizing Plan 3'],
+  planNames: ['E-type sizing plan','Sizing plan 2','U-tube sizing'],
   planDetails: {
-    'Sizing Plan 1': {
+    'E-type sizing plan': {
       ssPressureDrop: 'hello there',
       ssMassFlow: 0,
       ssInletTemp: 0,
@@ -36,7 +36,7 @@ const initialState = {
       dailyUsage: 6,
       acceptableLifespan: 200
     },
-    'Sizing Plan 2': {
+    'Sizing plan 2': {
       ssPressureDrop: 'whats your name',
       ssMassFlow: 0,
       ssInletTemp: 0,
@@ -52,7 +52,7 @@ const initialState = {
       dailyUsage: 6,
       acceptableLifespan: 200
     },
-    'Sizing Plan 3': {
+    'U-tube sizing': {
       ssPressureDrop: 2,
       ssMassFlow: 0,
       ssInletTemp: 0,

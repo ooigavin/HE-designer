@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Modal, StyleSheet, TouchableOpacity, Text, Button, TextInput } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { 
+  View, 
+  Modal, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Text, 
+  Button, 
+  TextInput } from 'react-native';
 
 import PlanItem from '../../components/PlanItem/PlanItem';
-import * as actionTypes from '../../store/actions/actionTypes';
 import {addSizing, delSizing} from '../../store/actions/sizingActions';
 
 class Sizing extends Component {
@@ -120,7 +126,7 @@ class Sizing extends Component {
     return (
       <View style={styles.sizingContainer}>
         {this.props.sizing.planNames.map(plan => (
-          <PlanItem planName={plan} key={plan} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>
+          <PlanItem planName={plan} key={plan} on={plan} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>
         ))}
         <TouchableOpacity style={styles.addButton} onPress={this.toggleAddModal}>
           <Icon name='md-add-circle-outline' size={45} color='green'/>

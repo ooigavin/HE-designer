@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const planItem = (props) => {
-
+  let eye = 'md-eye-off'
+  props.on === 'Sizing plan 2' ? eye = 'md-eye' : 'md-eye-off'
   return (
     <TouchableOpacity onPress={props.onItemPressed}>
       <View style={styles.planItem}>
         <Text style={styles.planName}>{props.planName}</Text>
         <TouchableOpacity onPress={props.view}>
-          <Icon size={30} name="md-eye-off" style={styles.plusIcon} />
+          <Icon size={30} name={eye} style={styles.plusIcon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={props.edit}>
           <Icon size={30} name="md-create" color="green" style={styles.plusIcon} />
