@@ -34,7 +34,13 @@ class Sizing extends Component {
     }
 
     if (buttonId === 'sideDrawerToggle') {
-      alert('Helper info for sizing tab')
+      Navigation.mergeOptions('leftSideDrawer', {
+        sideMenu: {
+          left: {
+            visible: true
+          }
+        }
+      });
     }
   }
 

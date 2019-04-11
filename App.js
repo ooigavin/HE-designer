@@ -6,8 +6,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import GuidelinesScreen from './src/Screens/Guidelines/Guidelines';
 import RatingScreen from './src/Screens/Rating/Rating';
 import RatingCalcScreen from './src/Screens/Rating/CalculateRating';
+import RatingPresetScreen from './src/Screens/Rating/RatingPreset';
 import SizingScreen from './src/Screens/Sizing/Sizing';
 import SizingCalcScreen from './src/Screens/Sizing/CalculateSizing';
+import SizingPresetScreen from './src/Screens/Sizing/SizingPreset';
 import SideDrawerScreen from './src/Screens/SideDrawer/SideDrawer';
 
 import configureStore from './src/store/configureStore';
@@ -21,8 +23,10 @@ Navigation.registerComponentWithRedux('he-designer.SideDrawerScreen', () => Side
 Navigation.registerComponentWithRedux('he-designer.GuidelinesScreen', () => GuidelinesScreen, Provider, store);
 Navigation.registerComponentWithRedux('he-designer.SizingScreen', () => SizingScreen, Provider, store);
 Navigation.registerComponentWithRedux('he-designer.SizingCalcScreen', () => SizingCalcScreen, Provider, store);
+Navigation.registerComponentWithRedux('he-designer.SizingPresetScreen', () => SizingPresetScreen, Provider, store);
 Navigation.registerComponentWithRedux('he-designer.RatingScreen', () => RatingScreen, Provider, store);
 Navigation.registerComponentWithRedux('he-designer.RatingCalcScreen', () => RatingCalcScreen, Provider, store);
+Navigation.registerComponentWithRedux('he-designer.RatingPresetScreen', () => RatingPresetScreen, Provider, store);
 
 // Start a App (screen)
 Navigation.events().registerAppLaunchedListener(() => {

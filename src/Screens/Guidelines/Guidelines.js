@@ -16,6 +16,16 @@ class Guidelines extends Component {
     if (buttonId === 'infoButton') {
       alert('Helper info for guidelines tab')
         }
+
+        if (buttonId === 'sideDrawerToggle') {
+          Navigation.mergeOptions('leftSideDrawer', {
+            sideMenu: {
+              left: {
+                visible: true
+              }
+            }
+          });
+        }
   }
 
   render () {

@@ -32,6 +32,16 @@ class Rating extends Component {
     if (buttonId === 'infoButton') {
       alert('Helper info for ratings tab')
     }
+
+    if (buttonId === 'sideDrawerToggle') {
+      Navigation.mergeOptions('leftSideDrawer', {
+        sideMenu: {
+          left: {
+            visible: true
+          }
+        }
+      });
+    }
   }
 
   openCalc = (name) => {
