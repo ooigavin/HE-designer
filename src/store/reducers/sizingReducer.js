@@ -1,5 +1,6 @@
 import * as actionTypes from './../actions/actionTypes'
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import {AsyncStorage} from 'react-native';
 
 import {ReTube, Pr, NuTube, Ht, Ft, PressureTube, Ut, At, AreaS, ReShell, De, generateHTML} from '../../utils/equations';
 
@@ -31,8 +32,15 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+  let newState= {}
 
   switch (action.type) {
+
+    case actionTypes.INIT_SIZING:
+      updatedDetails = JSON.parse(action.newState)
+
+      return updatedDetails
+
     case actionTypes.ADD_SIZING:
     let updatedDetails = {}
     let updatedNames = []
@@ -45,11 +53,13 @@ const reducer = (state = initialState, action) => {
     }
     updatedDetails[action.planName] = {...defaultDetail}
     console.log(updatedDetails)
-      return {
+      newState = {
         ...state,
         planNames: updatedNames.concat(action.planName),
         planDetails: updatedDetails
       };
+      AsyncStorage.setItem('sizing', JSON.stringify(newState))
+      return newState
 
     case actionTypes.DEL_SIZING:
       updatedDetails = state.planNames.reduce((newDetails, key)=>{ 
@@ -59,13 +69,15 @@ const reducer = (state = initialState, action) => {
         return newDetails;
       },{});
       console.log(updatedDetails)
-      return {
+      newState = {
         ...state,
         planNames: state.planNames.filter(plans => {
           return plans !== action.planName;
         }),
         planDetails: updatedDetails
       };
+      AsyncStorage.setItem('sizing', JSON.stringify(newState))
+      return newState
 
     case actionTypes.SAVE_SIZING:
       updatedDetails = {
@@ -74,10 +86,13 @@ const reducer = (state = initialState, action) => {
       }
 
       console.log(updatedDetails)
-      return {
+      newState = {
         ...state,
         planDetails: updatedDetails
       };
+      AsyncStorage.setItem('sizing', JSON.stringify(newState))
+
+      return newState
 
     case actionTypes.GEN_SIZING:
       console.log(action.type)
@@ -116,10 +131,13 @@ const reducer = (state = initialState, action) => {
       updatedDetails[action.planName]['generated'] = true
   
         console.log(updatedDetails)
-        return {
+        newState = {
           ...state,
           planDetails: updatedDetails
         };
+        AsyncStorage.setItem('sizing', JSON.stringify(newState))
+  
+        return newState
   }
   return state;
 };

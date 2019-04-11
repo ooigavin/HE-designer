@@ -1,13 +1,40 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { Navigation } from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class SideDrawer extends Component {
+
+  openRating = () => {
+    console.log(this.props.componentId)
+    Promise.all([
+      Icon.getImageSource('md-arrow-back', 30)
+    ]).then(sources => {
+      Navigation.push(this.props.componentId, {
+        component: {
+          name: 'he-designer.RatingPresetScreen',
+          passProps: {
+            planName: 'name'
+          },
+          options: {
+            topBar: {
+              title: { text: 'Rating Presets' },
+              leftButtons: [{
+                id: 'presetBack',
+                icon: sources[0]
+              }]
+            }
+          }
+        }
+      });
+    });
+  };
 
   render () {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>HE Designer Settings</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.openRating}>
           <View style={styles.planItem}>
             <Text>Rating Presets</Text>
           </View>

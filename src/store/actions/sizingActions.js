@@ -1,4 +1,4 @@
-import { ADD_SIZING, DEL_SIZING, SAVE_SIZING, GEN_SIZING} from './actionTypes';
+import { ADD_SIZING, DEL_SIZING, SAVE_SIZING, GEN_SIZING, INIT_SIZING} from './actionTypes';
 
 export const addSizing = (planName) => {
   return {
@@ -27,5 +27,12 @@ export const genSizing = (key, payload) => {
     type: GEN_SIZING,
     planName: key,
     planDetails: payload
+  };
+};
+
+export const initSizing = (payload) => {
+  return {
+    type: INIT_SIZING,
+    newState: payload
   };
 };

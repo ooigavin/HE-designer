@@ -1,5 +1,6 @@
 import * as actionTypes from './../actions/actionTypes'
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import {AsyncStorage} from 'react-native';
 
 import {ReTube, Pr, NuTube, Ht, Ft, PressureTube, Ut, At, AreaS, ReShell, De, generateHTML} from '../../utils/equations';
 
@@ -54,8 +55,16 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-
+  let newState= {}
   switch (action.type) {
+
+
+    case actionTypes.INIT_RATING:
+      updatedDetails = JSON.parse(action.newState)
+
+      return updatedDetails
+
+
     case actionTypes.ADD_RATING:
       let updatedDetails = {}
       let updatedNames = []
@@ -68,11 +77,14 @@ const reducer = (state = initialState, action) => {
       }
       updatedDetails[action.planName] = {...defaultDetail}
       console.log(updatedDetails)
-      return {
+      newState = {
         ...state,
         planNames: updatedNames.concat(action.planName),
         planDetails: updatedDetails
       };
+      AsyncStorage.setItem('rating', JSON.stringify(newState))
+      return newState
+
 
     case actionTypes.DEL_RATING:
       updatedDetails = state.planNames.reduce((newDetails, key)=>{ 
@@ -82,13 +94,16 @@ const reducer = (state = initialState, action) => {
         return newDetails;
       },{});
       console.log(updatedDetails)
-      return {
+      newState = {
         ...state,
         planNames: state.planNames.filter(plans => {
           return plans !== action.planName;
         }),
         planDetails: updatedDetails
       };
+      AsyncStorage.setItem('rating', JSON.stringify(newState))
+      return newState
+
 
     case actionTypes.SAVE_RATING:
       updatedDetails = {
@@ -97,10 +112,14 @@ const reducer = (state = initialState, action) => {
       }
 
       console.log(updatedDetails)
-      return {
+      newState = {
         ...state,
         planDetails: updatedDetails
       };
+      AsyncStorage.setItem('rating', JSON.stringify(newState))
+
+      return newState
+      
 
     case actionTypes.GEN_RATING:
       console.log(action.type)
@@ -109,7 +128,7 @@ const reducer = (state = initialState, action) => {
         ...state.planDetails,
         [action.planName]: action.planDetails
       }
-      
+
       let params = action.planDetails
       const at = At(params.innerD, params.noTubes)
       const ut = Ut(params, at)
@@ -163,10 +182,13 @@ const reducer = (state = initialState, action) => {
       // change generated state to true
       updatedDetails[action.planName]['generated'] = true
       console.log(updatedDetails)
-      return {
+      newState = {
         ...state,
         planDetails: updatedDetails
       };
+      AsyncStorage.setItem('rating', JSON.stringify(newState))
+
+      return newState
   }
   return state;
 };

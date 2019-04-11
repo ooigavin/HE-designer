@@ -4,6 +4,7 @@ export const ADD_SIZING = 'ADD_SIZING'
 export const DEL_SIZING = 'DEL_SIZING'
 export const SAVE_SIZING = 'SAVE_SIZING'
 export const GEN_SIZING = 'GEN_SIZING'
+export const INIT_SIZING = 'INIT_SIZING'
 
 // SIZING SETTING ACTIONS
 
@@ -17,6 +18,7 @@ export const ADD_RATING = 'ADD_RATING'
 export const DEL_RATING = 'DEL_RATING'
 export const SAVE_RATING = 'SAVE_RATING'
 export const GEN_RATING = 'GEN_RATING'
+export const INIT_RATING = 'INIT_RATING'
 
 // RATING SETTING ACTIONS
 

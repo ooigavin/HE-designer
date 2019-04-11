@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
+
+import { connect } from 'react-redux';
+import {initRating} from '../../store/actions/ratingActions';
+import {initSizing} from '../../store/actions/sizingActions';
+
 import { ScrollView, StyleSheet, View, Text, Image } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import {AsyncStorage} from 'react-native';
 
 import CollapsePanel from '../../UI/CollapsePanel/CollapsePanel';
-import Header from '../../UI/Header/Header';
 
 class Guidelines extends Component {
 
@@ -11,6 +16,25 @@ class Guidelines extends Component {
     super(props);
     this.navigationEventListener = Navigation.events().bindComponent(this);
   }
+
+  componentWillMount = () => {
+    
+    AsyncStorage.getItem('rating').then(item =>{
+      console.log(item)
+      if (item){
+      this.props.initRating(item);}
+    }).catch(error =>{
+      console.log('Unable to init rating')
+    })
+
+    AsyncStorage.getItem('sizing').then(item =>{
+      console.log(item)
+      if (item){
+      this.props.initSizing(item);}
+    }).catch(error =>{
+      console.log('Unable to init sizing')
+    })
+  };
 
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'infoButton') {
@@ -56,4 +80,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Guidelines;
+//connect is a function that returns a higher order function
+const mapStateToProps = state => {
+  return {};
+};
+
+// dispatch will be called when the function is called
+const mapDispatchToProps = dispatch =>{
+  return {
+      initRating: (newState) => dispatch(initRating(newState)),
+      initSizing: (newState) => dispatch(initSizing(newState))
+  }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Guidelines);
