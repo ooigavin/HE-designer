@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, ScrollView, Button } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Picker, Image} from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
 import {saveRating, genRating} from '../../store/actions/ratingActions';
@@ -8,10 +8,14 @@ import {saveRating, genRating} from '../../store/actions/ratingActions';
 import CollapsePanel from '../../UI/CollapsePanel/CollapsePanel';
 import IconButton from '../../UI/IconButton/IconButton';
 import CalcInput from '../../UI/CalcInput/CalcInput';
+import {images} from '../../utils/data';
 
 class CalculateRating extends Component {
 
   state = {
+    front: 'a',
+    shell: 'e',
+    rear: 'l',
     ratingInput: {      
       ssMassFlow: this.props.rating.planDetails[this.props.planName].ssMassFlow,
       ssInletTemp: this.props.rating.planDetails[this.props.planName].ssInletTemp,
@@ -89,12 +93,64 @@ class CalculateRating extends Component {
   };
 
   render() {
-    console.log(this.props.planName)
-    console.log(this.props.rating.planDetails[this.props.planName])
+    console.log(this.state.front)
     return (
       <ScrollView>
         <View style={styles.sizingContainer}>
-
+          <View style={styles.shellContainer}>
+            <View style={styles.shellItem}>
+              <Image source={images[this.state.front].path} style={{width: 80, height: 80}}/>
+              <Picker
+                selectedValue={this.state.front}
+                style={{height: 50, width: 100}}
+                mode = 'dropdown'
+                onValueChange={(itemValue, itemIndex) =>{
+                  console.log(itemValue)
+                  this.setState({front: itemValue})}
+                }>
+                <Picker.Item label="A-Type" value="a" />
+                <Picker.Item label="B-Type" value="b" />
+                <Picker.Item label="C-Type" value="c" />
+                <Picker.Item label="N-Type" value="nf" />
+                <Picker.Item label="D-Type" value="d" />
+              </Picker>
+            </View>
+            <View style={styles.shellItem}>
+              <Image source={images[this.state.shell].path} style={{width: 80, height: 80}}/>
+              <Picker
+                selectedValue={this.state.shell}
+                style={{height: 50, width: 100}}
+                mode = 'dropdown'
+                onValueChange={(itemValue, itemIndex) =>{
+                  console.log(itemValue)
+                  this.setState({shell: itemValue})}
+                }>
+                <Picker.Item label="E-Type" value="e" />
+                <Picker.Item label="F-Type" value="f" />
+                <Picker.Item label="G-Type" value="g" />
+                <Picker.Item label="H-Type" value="h" />
+                <Picker.Item label="J-Type" value="j" />
+              </Picker>
+            </View>
+            <View style={styles.shellItem}>
+              <Image source={images[this.state.rear].path} style={{width: 80, height: 80}}/>
+              <Picker
+                selectedValue={this.state.rear}
+                style={{height: 50, width: 100}}
+                mode = 'dropdown'
+                onValueChange={(itemValue, itemIndex) =>{
+                  console.log(itemValue)
+                  this.setState({rear: itemValue})}
+                }>
+                <Picker.Item label="L-Type" value="l" />
+                <Picker.Item label="M-Type" value="m" />
+                <Picker.Item label="N-Type" value="nr" />
+                <Picker.Item label="P-Type" value="p" />
+                <Picker.Item label="S-Type" value="s" />
+              </Picker>
+            </View>
+          </View>
+          
           <CollapsePanel panelName='Shell-side'>
             <View>
               <CalcInput label='Mass Flow Rate' placeholder='Mass Flow Rate' change={value => this.inputChangedHandler(value, 'ssMassFlow')} value={this.state.ratingInput.ssMassFlow}/>
@@ -172,6 +228,21 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  shellContainer:{
+    margin: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#eee',
+    borderRadius: 5
+  },
+  shellItem:{
+    margin: 5,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5,
+    alignItems:'center'
   }
 });
 

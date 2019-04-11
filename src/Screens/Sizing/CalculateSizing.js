@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, ScrollView, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Picker, Image } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 import {saveSizing, genSizing} from '../../store/actions/sizingActions';
 
 import CollapsePanel from '../../UI/CollapsePanel/CollapsePanel';
 import IconButton from '../../UI/IconButton/IconButton';
 import CalcInput from '../../UI/CalcInput/CalcInput';
-import HEImage from '../../assests/images/HE.png';
+import {images} from '../../utils/data';
 
 class CalculateSizing extends Component {
 
   state = {
+    front: 'a',
+    shell: 'e',
+    rear: 'l',
     sizingInput: {
       ssMassFlow: this.props.sizing.planDetails[this.props.planName].ssMassFlow,
       ssInletTemp: this.props.sizing.planDetails[this.props.planName].ssInletTemp,
@@ -72,22 +74,60 @@ class CalculateSizing extends Component {
     console.log(this.props.sizing.planDetails[this.props.planName])
     return (
       <ScrollView>
-        <View style={styles.sizingContainer}>
-          <View style={styles.shellContainer}>
-            <View style={styles.shellItem}>
-              <Image source={require('../../assests/images/a.png')} style={{width: 80, height: 80}}/>
-              <Text>A-type</Text>
-            </View>
-            <View style={styles.shellItem}>
-              <Image source={require('../../assests/images/f.png')} style={{width: 80, height: 80}}/>
-              <Text>F-type</Text>
-            </View>
-            <View style={styles.shellItem}>
-              <Image source={require('../../assests/images/m.png')} style={{width: 80, height: 80}}/>
-              <Text>M-type</Text>
-            </View>
+      <View style={styles.sizingContainer}>
+        <View style={styles.shellContainer}>
+          <View style={styles.shellItem}>
+            <Image source={images[this.state.front].path} style={{width: 80, height: 80}}/>
+            <Picker
+              selectedValue={this.state.front}
+              style={{height: 50, width: 100}}
+              mode = 'dropdown'
+              onValueChange={(itemValue, itemIndex) =>{
+                console.log(itemValue)
+                this.setState({front: itemValue})}
+              }>
+              <Picker.Item label="A-Type" value="a" />
+              <Picker.Item label="B-Type" value="b" />
+              <Picker.Item label="C-Type" value="c" />
+              <Picker.Item label="N-Type" value="nf" />
+              <Picker.Item label="D-Type" value="d" />
+            </Picker>
           </View>
-          <CalcInput label='Preset Configuration' placeholder='Acceptable Fouling' change='' value='Default config'/>
+          <View style={styles.shellItem}>
+            <Image source={images[this.state.shell].path} style={{width: 80, height: 80}}/>
+            <Picker
+              selectedValue={this.state.shell}
+              style={{height: 50, width: 100}}
+              mode = 'dropdown'
+              onValueChange={(itemValue, itemIndex) =>{
+                console.log(itemValue)
+                this.setState({shell: itemValue})}
+              }>
+              <Picker.Item label="E-Type" value="e" />
+              <Picker.Item label="F-Type" value="f" />
+              <Picker.Item label="G-Type" value="g" />
+              <Picker.Item label="H-Type" value="h" />
+              <Picker.Item label="J-Type" value="j" />
+            </Picker>
+          </View>
+          <View style={styles.shellItem}>
+            <Image source={images[this.state.rear].path} style={{width: 80, height: 80}}/>
+            <Picker
+              selectedValue={this.state.rear}
+              style={{height: 50, width: 100}}
+              mode = 'dropdown'
+              onValueChange={(itemValue, itemIndex) =>{
+                console.log(itemValue)
+                this.setState({rear: itemValue})}
+              }>
+              <Picker.Item label="L-Type" value="l" />
+              <Picker.Item label="M-Type" value="m" />
+              <Picker.Item label="N-Type" value="nr" />
+              <Picker.Item label="P-Type" value="p" />
+              <Picker.Item label="S-Type" value="s" />
+            </Picker>
+          </View>
+        </View>
           <CollapsePanel panelName='Shell-side'>
           <View>
               <CalcInput label='Mass Flow Rate' placeholder='Mass Flow Rate' change={value => this.inputChangedHandler(value, 'tsMassFlow')} value={this.state.sizingInput.ssMassFlow}/>
