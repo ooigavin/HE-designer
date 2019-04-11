@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, ScrollView, Button } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 import {saveRating, genRating} from '../../store/actions/ratingActions';
 
@@ -81,29 +80,12 @@ class CalculateRating extends Component {
   };
 
   savePlan = () => {
-    console.log(this.props.planName)
-    console.log(this.state.ratingInput)
     this.props.savePlanToStore(this.props.planName, this.state.ratingInput)
   };
 
   generateReport = () => {
-    const htmlContent = `
-<h1>${this.props.planName}</h1>
-<img src="file:////storage/7E3B-15E6/Android/data/com.hedesigner/he.png"/>
-<h3>Input Parameters</h3>
-`
-    let options = {
-      html: htmlContent,
-      fileName: this.props.planName,
-      directory: 'Documents'
-    };
-    console.log(htmlContent)
-    RNHTMLtoPDF.convert(options).then(filePath => {
-      console.log('PDF generated', filePath);
-    
-    });
     this.props.genPlan(this.props.planName, this.state.ratingInput)
-
+    alert('PDF report has been generated!')
   };
 
   render() {

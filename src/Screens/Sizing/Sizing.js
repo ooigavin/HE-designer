@@ -32,6 +32,10 @@ class Sizing extends Component {
     if (buttonId === 'infoButton') {
       alert('Helper info for sizing tab')
     }
+
+    if (buttonId === 'sideDrawerToggle') {
+      alert('Helper info for sizing tab')
+    }
   }
 
   openCalc = (name) => {
@@ -46,7 +50,7 @@ class Sizing extends Component {
           },
           options: {
             topBar: {
-              title: {text: name},
+              title: {text: name+ ' (Sizing Plan)' },
               leftButtons: [{
                 id:'calculationBack',
                 icon: sources[0]
@@ -125,7 +129,7 @@ class Sizing extends Component {
       
       let plans = this.props.sizing.planNames.length > 0
         ? this.props.sizing.planNames.map(plan => (
-          <PlanItem planName={plan} key={plan} on={plan} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>
+          <PlanItem planName={plan} key={plan} on={this.props.sizing.planDetails[plan]['generated']} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>
         ))
         : <Text style={styles.emptyText}>{`No Sizing Plans have been created.
 Click on the button below to create a new plan!`}</Text>

@@ -13,7 +13,6 @@ import {
 
 import PlanItem from '../../components/PlanItem/PlanItem';
 import {addRating, delRating} from '../../store/actions/ratingActions';
-import { grey } from 'ansi-colors';
 
 class Rating extends Component {
 

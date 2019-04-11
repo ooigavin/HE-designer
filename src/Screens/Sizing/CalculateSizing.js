@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, ScrollView, Button, Image } from 'react-native'
 import { Navigation } from 'react-native-navigation';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
-import {saveSizing} from '../../store/actions/sizingActions';
+import {saveSizing, genSizing} from '../../store/actions/sizingActions';
 
 import CollapsePanel from '../../UI/CollapsePanel/CollapsePanel';
 import IconButton from '../../UI/IconButton/IconButton';
@@ -15,20 +15,23 @@ class CalculateSizing extends Component {
 
   state = {
     sizingInput: {
-      ssPressureDrop: this.props.sizing.planDetails[this.props.planName].ssPressureDrop,
       ssMassFlow: this.props.sizing.planDetails[this.props.planName].ssMassFlow,
       ssInletTemp: this.props.sizing.planDetails[this.props.planName].ssInletTemp,
-      ssOutletTemp:this.props.sizing.planDetails[this.props.planName].ssOutletTemp,
-      ssFluidType: this.props.sizing.planDetails[this.props.planName].ssFluidType,
+      ssOutletTemp: this.props.sizing.planDetails[this.props.planName].ssOutletTemp,
+      ssHeatCap: this.props.sizing.planDetails[this.props.planName].ssHeatCap,
+
       tsMassFlow: this.props.sizing.planDetails[this.props.planName].tsMassFlow,
       tsInletTemp: this.props.sizing.planDetails[this.props.planName].tsInletTemp,
       tsOutletTemp: this.props.sizing.planDetails[this.props.planName].tsOutletTemp,
-      tsFluidType: this.props.sizing.planDetails[this.props.planName].tsFluidType,
-      ssMaterial: this.props.sizing.planDetails[this.props.planName].ssMaterial,
-      tsMaterial: this.props.sizing.planDetails[this.props.planName].tsMaterial,
-      acceptableFouling: this.props.sizing.planDetails[this.props.planName].acceptableFouling,
-      dailyUsage: this.props.sizing.planDetails[this.props.planName].dailyUsage,
-      acceptableLifespan: this.props.sizing.planDetails[this.props.planName].acceptableLifespan
+      tsHeatCap: this.props.sizing.planDetails[this.props.planName].tsHeatCap,
+      tsDensity: this.props.sizing.planDetails[this.props.planName].tsDensity,
+      tsVelocity: this.props.sizing.planDetails[this.props.planName].tsVelocity,
+
+      tubePitch: this.props.sizing.planDetails[this.props.planName].tubePitch,
+      innerD: this.props.sizing.planDetails[this.props.planName].innerD,
+      outerD: this.props.sizing.planDetails[this.props.planName].outerD,
+      tubeLayout: this.props.sizing.planDetails[this.props.planName].tubeLayout,
+      noPasses: this.props.sizing.planDetails[this.props.planName].noPasses
     }
   };
 
@@ -56,28 +59,12 @@ class CalculateSizing extends Component {
   };
 
   savePlan = () => {
-    console.log(this.props.planName)
-    console.log(this.state.sizingInput)
     this.props.savePlanToStore(this.props.planName, this.state.sizingInput)
   };
 
   generateReport = () => {
-    const htmlContent = `<div>
-    <h2 style="margin-bottom: 0;margin-left: 10;color: #59C6D1">Plan Name</h2>
-    <table cellpadding="10">
-        <tr valign='top'>
-`
-    let options = {
-      html: htmlContent,
-      fileName: this.props.planName,
-      directory: 'Documents'
-    };
-    console.log(htmlContent)
-    RNHTMLtoPDF.convert(options).then(filePath => {
-      console.log('PDF generated', filePath);
-    
-    });
-
+    this.props.genPlan(this.props.planName, this.state.sizingInput)
+    alert('PDF report has been generated!')
   };
 
   render() {
@@ -103,11 +90,10 @@ class CalculateSizing extends Component {
           <CalcInput label='Preset Configuration' placeholder='Acceptable Fouling' change='' value='Default config'/>
           <CollapsePanel panelName='Shell-side'>
           <View>
-            <CalcInput label='Pressure Drop' placeholder='Pressure Drop' change={value => this.inputChangedHandler(value, 'ssPressureDrop')} value={this.state.sizingInput.ssPressureDrop}/>
-            <CalcInput label='Mass Flow Rate' placeholder='Mass Flow Rate' change={value => this.inputChangedHandler(value, 'ssMassFlow')} value={this.state.sizingInput.ssMassFlow}/>
-            <CalcInput label='Inlet Temp' placeholder='Inlet Temp' change={value => this.inputChangedHandler(value, 'ssInletTemp')} value={this.state.sizingInput.ssInletTemp}/>
-            <CalcInput label='Outlet Temp' placeholder='Outlet Temp' change={value => this.inputChangedHandler(value, 'ssOutletTemp')} value={this.state.sizingInput.ssOutletTemp}/>
-            <CalcInput label='Fluid Type' placeholder='Fluid Type' change={value => this.inputChangedHandler(value, 'ssFluidType')} value={this.state.sizingInput.ssFluidType}/>
+              <CalcInput label='Mass Flow Rate' placeholder='Mass Flow Rate' change={value => this.inputChangedHandler(value, 'tsMassFlow')} value={this.state.sizingInput.ssMassFlow}/>
+              <CalcInput label='Inlet Temp' placeholder='Inlet Temp' change={value => this.inputChangedHandler(value, 'tsInletTemp')} value={this.state.sizingInput.ssInletTemp}/>
+              <CalcInput label='Outlet Temp' placeholder='Outlet Temp' change={value => this.inputChangedHandler(value, 'tsOutletTemp')} value={this.state.sizingInput.ssOutletTemp}/>
+              <CalcInput label='Heat Capacity' placeholder='Heat Capacity' change={value => this.inputChangedHandler(value, 'tsHeatCap')} value={this.state.sizingInput.ssHeatCap}/>
           </View>
           </CollapsePanel>
           <CollapsePanel panelName='Tube-side'>
@@ -115,20 +101,18 @@ class CalculateSizing extends Component {
               <CalcInput label='Mass Flow Rate' placeholder='Mass Flow Rate' change={value => this.inputChangedHandler(value, 'tsMassFlow')} value={this.state.sizingInput.tsMassFlow}/>
               <CalcInput label='Inlet Temp' placeholder='Inlet Temp' change={value => this.inputChangedHandler(value, 'tsInletTemp')} value={this.state.sizingInput.tsInletTemp}/>
               <CalcInput label='Outlet Temp' placeholder='Outlet Temp' change={value => this.inputChangedHandler(value, 'tsOutletTemp')} value={this.state.sizingInput.tsOutletTemp}/>
-              <CalcInput label='Fluid Type' placeholder='Fluid Type' change={value => this.inputChangedHandler(value, 'tsFluidType')} value={this.state.sizingInput.tsFluidType}/>
+              <CalcInput label='Heat Capacity' placeholder='Heat Capacity' change={value => this.inputChangedHandler(value, 'tsHeatCap')} value={this.state.sizingInput.tsHeatCap}/>
+              <CalcInput label='Fluid Velocity' placeholder='Fluid Velocity' change={value => this.inputChangedHandler(value, 'tsVelocity')} value={this.state.sizingInput.tsVelocity}/>
+              <CalcInput label='Fluid Density' placeholder='Fluid Density' change={value => this.inputChangedHandler(value, 'tsDensity')} value={this.state.sizingInput.tsDensity}/>
             </View>
           </CollapsePanel>
-          <CollapsePanel panelName='Materials'>
+          <CollapsePanel panelName='Physical Properties'>
             <View>
-              <CalcInput label='Shell-Side Material' placeholder='Shell-Side Material' change={value => this.inputChangedHandler(value, 'ssMaterial')} value={this.state.sizingInput.ssMaterial}/>
-              <CalcInput label='Tube-Side Material' placeholder='Tube-Side Material' change={value => this.inputChangedHandler(value, 'tsMaterial')} value={this.state.sizingInput.tsMaterial}/>
-            </View>
-          </CollapsePanel>
-          <CollapsePanel panelName='Fouling'>
-            <View>
-              <CalcInput label='Acceptable Fouling' placeholder='Acceptable Fouling' change={value => this.inputChangedHandler(value, 'acceptableFouling')} value={this.state.sizingInput.acceptableFouling}/>
-              <CalcInput label='Hrs of Use (Daily)' placeholder='Hrs of Use (Daily)' change={value => this.inputChangedHandler(value, 'dailyUsage')} value={this.state.sizingInput.dailyUsage}/>
-              <CalcInput label='Acceptable Lifespan' placeholder='Acceptable Lifespan' change={value => this.inputChangedHandler(value, 'acceptableLifespan')} value={this.state.sizingInput.acceptableLifespan}/>
+              <CalcInput label='Tube Pitch' placeholder='Tube Pitch' change={value => this.inputChangedHandler(value, 'tubePitch')} value={this.state.sizingInput.tubePitch}/>
+              <CalcInput label='Tube Layout' placeholder='Tube Layout' change={value => this.inputChangedHandler(value, 'tubeLayout')} value={this.state.sizingInput.tubeLayout}/>
+              <CalcInput label='Tube Inner Diameter' placeholder='Tube Inner Diameter' change={value => this.inputChangedHandler(value, 'innerD')} value={this.state.sizingInput.innerD}/>
+              <CalcInput label='Tube Outer Diameter' placeholder='Tube Outer Diameter' change={value => this.inputChangedHandler(value, 'outerD')} value={this.state.sizingInput.outerD}/>
+              <CalcInput label='Number of Passes' placeholder='Number of Passes' change={value => this.inputChangedHandler(value, 'noPasses')} value={this.state.sizingInput.noPasses}/>
             </View>
           </CollapsePanel>
         </View>
@@ -180,7 +164,8 @@ const mapStateToProps = state => {
 // dispatch will be called when the function is called
 const mapDispatchToProps = dispatch =>{
   return {
-      savePlanToStore: (name, details) => dispatch(saveSizing(name, details))
+      savePlanToStore: (name, details) => dispatch(saveSizing(name, details)),
+      genPlan: (name, details) => dispatch(genSizing(name, details))
   }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CalculateSizing);

@@ -1,11 +1,12 @@
 import * as actionTypes from './../actions/actionTypes'
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
-import {ReTube, Pr, NuTube, Ht, Ft} from '../../utils/equations/equations';
+import {ReTube, Pr, NuTube, Ht, Ft, PressureTube, Ut, At, AreaS, ReShell, De, generateHTML} from '../../utils/equations';
 
 const defaultDetail = {
   generated: false,
 
-  ssMassFlow: 80000,
+  ssMassFlow: 80000/3600,
   ssInletTemp: 35,
   ssOutletTemp: 25,
   ssFluidType: 'water',
@@ -14,7 +15,7 @@ const defaultDetail = {
   ssDensity: 995.7,
   ssConductivity: 0.614,
 
-  tsMassFlow: 140000,
+  tsMassFlow: 140000/3600,
   tsInletTemp: 20,
   tsOutletTemp: 25,
   tsFluidType: 'water',
@@ -67,7 +68,6 @@ const reducer = (state = initialState, action) => {
       }
       updatedDetails[action.planName] = {...defaultDetail}
       console.log(updatedDetails)
-      console.log(updatedDetails)
       return {
         ...state,
         planNames: updatedNames.concat(action.planName),
@@ -91,10 +91,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case actionTypes.SAVE_RATING:
-      console.log('hello')
-      console.log(action.planName)
-      console.log(action.type)
-      console.log(action.planDetails)
       updatedDetails = {
         ...state.planDetails,
         [action.planName]: action.planDetails
@@ -113,10 +109,57 @@ const reducer = (state = initialState, action) => {
         ...state.planDetails,
         [action.planName]: action.planDetails
       }
-      const reTube = ReTube(action.planDetails)
-      const prTube = Pr(action.planDetails)
-      const nuTube = NuTube(action.planDetails, reTube, prTube)
-      const hTube = Ht(action.planDetails, nuTube)
+      
+      let params = action.planDetails
+      const at = At(params.innerD, params.noTubes)
+      const ut = Ut(params, at)
+      const reTube = ReTube(params)
+      const prTube = Pr(params)
+      const ft = Ft(reTube)
+      const nuTube = NuTube(params, reTube, prTube, ft)
+      const hTube = Ht(params, nuTube)
+      const pressureTube = PressureTube(params, ft, ut)
+      const de = De(params)
+      const As = AreaS(params)
+      const reShell = ReShell(params, As, de)
+      const hShell = 12
+      const pressureShell = 12
+
+      //checks
+      const fouling = 45
+      const fn = 12
+      const damp = 32
+      const critSpeed = 1
+
+      let pass = ut < critSpeed && fouling < params.acceptableFouling
+        ? true
+        : false
+
+      let results = {
+        passed: pass,
+        hTube: hTube,
+        pressureTube: pressureTube,
+        hShell: hShell,
+        pressureShell: pressureShell,
+        fouling: fouling,
+        fn: fn,
+        damp: damp,
+        critSpeed: critSpeed
+      }
+      // generate pdf
+      const htmlContent =  generateHTML(action.planName, 'rating', params, results)
+
+      let options = {
+        html: htmlContent,
+        fileName: action.planName +'-Rating',
+        directory: 'Documents'
+      };
+      console.log(htmlContent)
+      RNHTMLtoPDF.convert(options).then(filePath => {
+        console.log('PDF generated', filePath);
+      
+      });
+
       // change generated state to true
       updatedDetails[action.planName]['generated'] = true
       console.log(updatedDetails)
