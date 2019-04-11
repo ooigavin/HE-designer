@@ -47,7 +47,7 @@ class Rating extends Component {
           },
           options: {
             topBar: {
-              title: { text: name },
+              title: { text: name + ' (Rating Plan)' },
               leftButtons: [{
                 id: 'calculationBack',
                 icon: sources[0]
@@ -123,7 +123,7 @@ class Rating extends Component {
         </Modal>
       )
       : null
-      
+
       let plans = this.props.rating.planNames.length > 0
         ? this.props.rating.planNames.map(plan => (
           <PlanItem planName={plan} key={plan} on={this.props.rating.planDetails[plan]['generated']} onItemPressed={key => this.openCalc(plan)} delete={key => this.toggleDeleteModal(plan)}/>

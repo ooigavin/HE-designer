@@ -1,18 +1,46 @@
 import * as actionTypes from './../actions/actionTypes'
 
+import {ReTube} from '../../utils/equations/equations';
+
 const defaultDetail = {
   generated: false,
-  ssPressureDrop: 1,
-  ssMassFlow: 0,
-  ssInletTemp: 0,
-  ssOutletTemp:0,
+
+  ssMassFlow: 80000,
+  ssInletTemp: 35,
+  ssOutletTemp: 25,
   ssFluidType: 'water',
-  tsMassFlow: 0,
-  tsInletTemp: 0,
-  tsOutletTemp: 0,
+  ssHeatCap: 4178.5,
+  ssViscosity: 0.000797,
+  ssDensity: 995.7,
+  ssConductivity: 0.614,
+
+  tsMassFlow: 140000,
+  tsInletTemp: 20,
+  tsOutletTemp: 25,
   tsFluidType: 'water',
+  tsHeatCap: 4179,
+  tsViscosity: 0.00095,
+  tsDensity: 997,
+  tsConductivity: 0.6065,
+
   ssMaterial: 'steel',
   tsMaterial: 'iron',
+  noTubes: 81,
+  tubePitch: 0.03175,
+  innerD: 0.0229108,
+  outerD: 0.0254,
+  tubeLayout: 90,
+  noPasses: 1,
+  noBaffles: 35,
+  shellD: 0.38735,
+  baffleCut: 25,
+  baffleSpacing: 0.3048,
+
+  tubeUnsupported: 2.5,
+  tubeYoungs: 68900000000,
+  tubeLongitStress: 90000000,
+  addedMassCoeff: 1.5,
+  metalMassPer: 0.255,
   acceptableFouling: 98,
   dailyUsage: 6,
   acceptableLifespan: 200
@@ -78,15 +106,14 @@ const reducer = (state = initialState, action) => {
       };
 
     case actionTypes.GEN_RATING:
-      console.log('rating')
-      console.log(action.planName)
       console.log(action.type)
       console.log(action.planDetails)
       updatedDetails = {
         ...state.planDetails,
         [action.planName]: action.planDetails
       }
-
+      const reTube = ReTube(action.planDetails)
+      
       // change generated state to true
       updatedDetails[action.planName]['generated'] = true
       console.log(updatedDetails)
