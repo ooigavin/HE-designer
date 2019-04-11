@@ -1,6 +1,6 @@
 import * as actionTypes from './../actions/actionTypes'
 
-import {ReTube} from '../../utils/equations/equations';
+import {ReTube, Pr, NuTube, Ht, Ft} from '../../utils/equations/equations';
 
 const defaultDetail = {
   generated: false,
@@ -30,6 +30,7 @@ const defaultDetail = {
   innerD: 0.0229108,
   outerD: 0.0254,
   tubeLayout: 90,
+  tubeLength: 3,
   noPasses: 1,
   noBaffles: 35,
   shellD: 0.38735,
@@ -113,7 +114,9 @@ const reducer = (state = initialState, action) => {
         [action.planName]: action.planDetails
       }
       const reTube = ReTube(action.planDetails)
-      
+      const prTube = Pr(action.planDetails)
+      const nuTube = NuTube(action.planDetails, reTube, prTube)
+      const hTube = Ht(action.planDetails, nuTube)
       // change generated state to true
       updatedDetails[action.planName]['generated'] = true
       console.log(updatedDetails)

@@ -39,6 +39,7 @@ class CalculateRating extends Component {
       innerD: this.props.rating.planDetails[this.props.planName].innerD,
       outerD: this.props.rating.planDetails[this.props.planName].outerD,
       tubeLayout: this.props.rating.planDetails[this.props.planName].tubeLayout,
+      tubeLength: this.props.rating.planDetails[this.props.planName].tubeLength,
       noPasses: this.props.rating.planDetails[this.props.planName].noPasses,
       noBaffles: this.props.rating.planDetails[this.props.planName].noBaffles,
       shellD: this.props.rating.planDetails[this.props.planName].shellD,
@@ -145,6 +146,7 @@ class CalculateRating extends Component {
               <CalcInput label='Number of Tubes' placeholder='Number of Tubes' change={value => this.inputChangedHandler(value, 'noTubes')} value={this.state.ratingInput.noTubes}/>
               <CalcInput label='Tube Pitch' placeholder='Tube Pitch' change={value => this.inputChangedHandler(value, 'tubePitch')} value={this.state.ratingInput.tubePitch}/>
               <CalcInput label='Tube Layout' placeholder='Tube Layout' change={value => this.inputChangedHandler(value, 'tubeLayout')} value={this.state.ratingInput.tubeLayout}/>
+              <CalcInput label='Tube Length' placeholder='Tube Length' change={value => this.inputChangedHandler(value, 'tubeLength')} value={this.state.ratingInput.tubeLength}/>
               <CalcInput label='Tube Inner Diameter' placeholder='Tube Inner Diameter' change={value => this.inputChangedHandler(value, 'innerD')} value={this.state.ratingInput.innerD}/>
               <CalcInput label='Tube Outer Diameter' placeholder='Tube Outer Diameter' change={value => this.inputChangedHandler(value, 'outerD')} value={this.state.ratingInput.outerD}/>
               <CalcInput label='Number of Passes' placeholder='Number of Passes' change={value => this.inputChangedHandler(value, 'noPasses')} value={this.state.ratingInput.noPasses}/>
